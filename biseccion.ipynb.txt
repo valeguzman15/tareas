@@ -1,0 +1,62 @@
+import matplotlib.pyplot as plt
+
+def biseccion():
+
+  xl= [1.0]  
+  xr=[] 
+  xu=[2.0]  
+  fxl=[]  
+  fxr=[] 
+  fxu=[] 
+  Ea=0.0 
+  EaTer = 0 
+  i=0
+
+  fxl.append((xl[i]**3) + (4.0*xl[i]**2.0)-10.0) 
+  fxu.append((xu[i]**3) + (4.0*xu[i]**2.0)-10.0)
+
+  if (fxl[0]*fxu[0]<0): 
+    print('Existe raíz en intervalo')
+   
+    while (EaTer==0): 
+      print('Iterador '+ str(i)) 
+      xr.append((xl[i] + xu[i])/2.0) 
+      fxr.append((xr[i]**3) + (4.0*xr[i]**2.0)-10.0) 
+      print('xr: '+str(xr))
+      print('fxr: '+str(fxr))
+      print('fxl: '+str(fxl))
+      print('fxu: '+str(fxu))
+     
+      if (i>0): 
+        Ea=((xr[i]-xr[i-1])/xr[i])
+        if(Ea<0): 
+          Ea*=-1
+        if (Ea<0.001): 
+          EaTer=1 
+      if (fxl[i]*fxr[i]<0):
+        print('fxl fxr')
+        i+=1
+        xl.append(xl[i-1])
+        xu.append(xr[i-1])
+      else:
+        if (fxr[i]*fxu[i]<0):
+          print('fxr fxu')
+          i+=1
+          xl.append(xr[i-1])
+          xu.append(xu[i-1])
+      fxl.append((xl[i]**3) + (4.0*xl[i]**2.0)-10.0) 
+      fxu.append((xu[i]**3) + (4.0*xu[i]**2.0)-10.0) 
+      print('Ea '+str(Ea)) 
+      print()   
+  else:
+    print('No hay raíz en el intervalo')   
+  y=[] 
+  for i in xr:
+    y.append(0)
+  plt.title("Metodo de  Biseccion", fontsize = 21)
+  plt.xlabel(" x ", fontsize = 14)
+  plt.ylabel(" y ", fontsize = 14) 
+  plt.scatter(xr, y, s = 10)
+  plt.show()
+
+biseccion()
